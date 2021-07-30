@@ -1,0 +1,144 @@
+{
+  "chaoslib-version": "1.3.1",
+  "platform": "Darwin-17.7.0-x86_64-i386-64bit",
+  "node": "car-booth-25-mac",
+  "experiment": {
+    "title": "Does our service tolerate the loss of its example file?",
+    "description": "Our service reads data from an example file, can it handle the file disappearing?",
+    "tags": [
+      "tutorial",
+      "filesystem"
+    ],
+    "steady-state-hypothesis": {
+      "title": "The exchange file must exist",
+      "probes": [
+        {
+          "type": "probe",
+          "name": "service-is-unavailable",
+          "tolerance": [
+            200,
+            503
+          ],
+          "provider": {
+            "type": "http",
+            "url": "http://localhost:8080/"
+          }
+        }
+      ]
+    },
+    "method": [
+      {
+        "name": "move-example-file",
+        "type": "action",
+        "provider": {
+          "type": "python",
+          "module": "os",
+          "func": "rename",
+          "arguments": {
+            "src": "./example.dat",
+            "dst": "./example.dat.old"
+          }
+        }
+      }
+    ],
+    "dry": false
+  },
+  "start": "2019-05-14T18:08:46.332598",
+  "status": "completed",
+  "deviated": false,
+  "steady_states": {
+    "before": {
+      "steady_state_met": true,
+      "probes": [
+        {
+          "activity": {
+            "type": "probe",
+            "name": "service-is-unavailable",
+            "tolerance": [
+              200,
+              503
+            ],
+            "provider": {
+              "type": "http",
+              "url": "http://localhost:8080/"
+            }
+          },
+          "output": {
+            "status": 200,
+            "headers": {
+              "Date": "Tue, 14 May 2019 18:08:46 GMT",
+              "Server": "WSGIServer/0.2 CPython/3.7.3",
+              "Content-type": "text/plain",
+              "Content-Length": "26"
+            },
+            "body": "2019-05-14T11:08:45.378525"
+          },
+          "status": "succeeded",
+          "start": "2019-05-14T18:08:46.333657",
+          "end": "2019-05-14T18:08:46.339133",
+          "duration": 0.005476,
+          "tolerance_met": true
+        }
+      ]
+    },
+    "after": {
+      "steady_state_met": true,
+      "probes": [
+        {
+          "activity": {
+            "type": "probe",
+            "name": "service-is-unavailable",
+            "tolerance": [
+              200,
+              503
+            ],
+            "provider": {
+              "type": "http",
+              "url": "http://localhost:8080/"
+            }
+          },
+          "output": {
+            "status": 200,
+            "headers": {
+              "Date": "Tue, 14 May 2019 18:08:46 GMT",
+              "Server": "WSGIServer/0.2 CPython/3.7.3",
+              "Content-type": "text/plain",
+              "Content-Length": "26"
+            },
+            "body": "2019-05-14T11:08:45.378525"
+          },
+          "status": "succeeded",
+          "start": "2019-05-14T18:08:46.341773",
+          "end": "2019-05-14T18:08:46.345330",
+          "duration": 0.003557,
+          "tolerance_met": true
+        }
+      ]
+    }
+  },
+  "run": [
+    {
+      "activity": {
+        "name": "move-example-file",
+        "type": "action",
+        "provider": {
+          "type": "python",
+          "module": "os",
+          "func": "rename",
+          "arguments": {
+            "src": "./example.dat",
+            "dst": "./example.dat.old"
+          }
+        }
+      },
+      "output": null,
+      "status": "succeeded",
+      "start": "2019-05-14T18:08:46.339855",
+      "end": "2019-05-14T18:08:46.341134",
+      "duration": 0.001279
+    }
+  ],
+  "rollbacks": [],
+  "end": "2019-05-14T18:08:46.346135",
+  "duration": 0.026986122131347656
+}
